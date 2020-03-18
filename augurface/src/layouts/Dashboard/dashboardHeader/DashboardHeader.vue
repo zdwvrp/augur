@@ -20,7 +20,7 @@ export default {
     };
   },
   components: {
-    NavBar
+    NavBar 
   }
 };
 </script>
@@ -30,11 +30,12 @@ header {
   background-color: white;
   box-shadow: 0 0 20px 0 var(--grey);
   z-index: 10;
-  /* position: sticky; */
-  /* top: 0; */
+  position: relative;
 }
 
 img {
   width: 250px;
 }
+
+
 </style>
