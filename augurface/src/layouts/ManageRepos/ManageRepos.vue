@@ -53,7 +53,6 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-top: 3rem;
-  height: 2000px;
 }
 
 .groups {

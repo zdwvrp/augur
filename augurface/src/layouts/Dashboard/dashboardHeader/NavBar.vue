@@ -1,13 +1,15 @@
 <template>
-  <div id="NavBar">
-    <div class="nav-links">
-      <nav-link v-for="link in links" :key="link.path" v-bind="link" />
+  <vue-position-sticky>
+    <div id="NavBar">
+      <div class="nav-links">
+        <nav-link v-for="link in links" :key="link.path" v-bind="link" />
+      </div>
+      <div class="buttons">
+        <aug-icon-button iconClass="fas fa-bars" :circular="true" />
+        <aug-icon-button iconClass="fas fa-user" :circular="true" />
+      </div>
     </div>
-    <div class="buttons">
-      <aug-icon-button iconClass="fas fa-bars" :circular="true"/>
-      <aug-icon-button iconClass="fas fa-user" :circular="true"/>
-    </div>
-  </div>
+  </vue-position-sticky>
 </template>
 
 <script>
@@ -23,7 +25,7 @@ export default {
     }
   },
   components: {
-    NavLink, 
+    NavLink,
     AugIconButton
   }
 };
@@ -34,6 +36,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
+  padding-top: 0rem;
+  box-shadow: 0 10px 10px 0 var(--grey);
+  z-index: 20;
+  position: relative;
 }
 
 .nav-links {
@@ -42,9 +49,9 @@ export default {
 }
 
 .buttons {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-evenly;
-    margin-right: 1rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  margin-right: 1rem;
 }
 </style>
