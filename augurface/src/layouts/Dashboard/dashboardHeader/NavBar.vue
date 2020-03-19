@@ -56,6 +56,7 @@ export default {
   box-shadow: 0 10px 10px 0 var(--grey);
   z-index: 20;
   position: relative;
+  border-bottom: 1px solid var(--grey);
 }
 
 .nav-links {
