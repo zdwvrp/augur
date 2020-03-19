@@ -113,8 +113,16 @@ def create_manager_routes(server):
             summary['group_id'] = str(group_id)
             summary['rg_name'] = group
             try:
-                repos = repo_manager.fetch_repos()
-                for repo in repos:
+                repos_gh = repo_manager.fetch_repos()
+                repos_in_augur = repo_manager.get_existing_repos(group_id)
+                repos_db_set = set()
+                for name in repos_in_augur:
+                    #repo_git is more reliable than repo name, so we'll just grab everything after the last slash 
+                    name = (name['repo_git'].rsplit('/', 1)[1])
+                    repos_db_set.add(name)
+                repos_to_insert = set(repos_gh) - repos_db_set
+
+                for repo in repos_to_insert:
                     try:
                         repo_id = repo_manager.insert_repo(group_id, group, repo)
                     except exc.SQLAlchemyError:
@@ -142,6 +150,16 @@ class Repo_insertion_manager():
     def __init__(self, organization_name, database_connection):
         self.org = organization_name
         self.db = database_connection
+
+    def get_existing_repos(self, group_id):
+        """returns repos belonging to repogroup in augur db"""
+        select_repos_query = s.sql.text("""
+            SELECT repo_git from augur_data.repo
+            WHERE repo_group_id = :repo_group_id
+        """)
+        select_repos_query = select_repos_query.bindparams(repo_group_id = group_id)
+        result = self.db.execute(select_repos_query)
+        return result.fetchall()
 
     def group_exists_gh(self):
         url = url = "https://api.github.com/orgs/{}".format(self.org)
