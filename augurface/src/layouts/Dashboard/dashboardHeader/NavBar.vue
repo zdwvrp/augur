@@ -5,11 +5,11 @@
         <nav-link v-for="link in links" :key="link.path" v-bind="link" />
       </div>
       <div class="buttons">
-        <aug-icon-button iconClass="fas fa-bars" :circular="true" @click="toggleSettingsOpen()" />
+        <aug-icon-button iconClass="fas fa-bars" :circular="true" @click.stop="toggleSettingsOpen" />
         <aug-icon-button iconClass="fas fa-user" :circular="true" />
       </div>
       <transition name="slide-right">
-        <settings-panel v-if="isSettingsOpen" class="settings-panel" />
+        <settings-panel v-show="isSettingsOpen" class="settings-panel" v-click-outside="closeSettingsPanel" ref="settingsPanel" @darkClick="closeSettingsPanel"/>
       </transition>
     </div>
   </vue-position-sticky>
@@ -19,6 +19,7 @@
 import NavLink from "./NavLink.vue";
 import AugIconButton from "../../../components/BaseComponents/AugIconButton.vue";
 import SettingsPanel from "../../../components/SidePanels/SettingsPanel.vue";
+import ClickOutside from "vue-click-outside";
 
 export default {
   name: "NavBar",
@@ -40,8 +41,26 @@ export default {
   },
   methods: {
     toggleSettingsOpen() {
-      this.isSettingsOpen = !this.isSettingsOpen;
+      if (this.isSettingsOpen) {
+        this.isSettingsOpen = false;
+        this.$refs.settingsPanel.fadeOut();
+      }
+      else {
+        this.isSettingsOpen = true;
+        this.$refs.settingsPanel.fadeIn();
+      }
+    }, 
+    closeSettingsPanel() {
+      this.$refs.settingsPanel.fadeOut();
+      this.isSettingsOpen = false;
+    }, 
+    openSettingsPanel() {
+      this.$refs.settingsPanel.fadeIn();
+      this.isSettingsOpen = true;
     }
+  }, 
+  directives: {
+    ClickOutside
   }
 };
 </script>
