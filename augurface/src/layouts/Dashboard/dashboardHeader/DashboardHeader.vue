@@ -15,6 +15,7 @@ export default {
       links: [
         { text: "MANAGE REPOS", path: "/dashboard/manage" },
         // { text: "ANALYZE REPOS", path: "/dashboard/analyze" },
+        { text: "CONFIGURE SLACK", path: "/dashboard/slack" }, 
         { text: "ABOUT AUGUR", path: "/dashboard/about" }
       ]
     };

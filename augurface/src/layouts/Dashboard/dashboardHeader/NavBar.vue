@@ -6,7 +6,8 @@
       </div>
       <div class="buttons">
         <aug-icon-button iconClass="fas fa-bars" :circular="true" @click.stop="toggleSidePanel" />
-        <aug-icon-button iconClass="fas fa-user" :circular="true" />
+        <aug-icon-button iconClass="fas fa-user" :circular="true" v-show="isLoggedIn"/>
+        <img src="../../../assets/slackbutton.png" alt="sign in with slack" class="slack-button" v-show="!isLoggedIn"/>
       </div>
       <transition name="slide-right">
         <side-panel v-show="isSidePanelOpen" class="settings-panel" v-click-outside="closeSidePanel" ref="sidePanel" @darkClick="closeSidePanel"/>
@@ -20,6 +21,7 @@ import NavLink from "./NavLink.vue";
 import AugIconButton from "../../../components/BaseComponents/AugIconButton.vue";
 import SidePanel from "../../../components/SidePanels/SidePanel.vue";
 import ClickOutside from "vue-click-outside";
+import { mapGetters } from "vuex";
 
 export default {
   name: "NavBar",
@@ -39,6 +41,9 @@ export default {
       isSidePanelOpen: false
     };
   },
+  computed: {
+    ...mapGetters("userModule", ["isLoggedIn"])
+  }, 
   methods: {
     toggleSidePanel() {
       if (this.isSidePanelOpen) {
@@ -85,15 +90,30 @@ export default {
 
 .buttons {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-evenly;
-  margin-right: 1rem;
+}
+
+.buttons > * {
+  margin-right: .5rem;
 }
 
 .settings-panel {
   position: absolute;
   bottom: -100vh;
   right: 0;
+}
+
+.slack-button {
+  width: 10rem;
+  border-radius: .2rem;
+  background-color: var(--grey);
+  transition: box-shadow .3s ease;
+}
+
+.slack-button:hover {
+  box-shadow: 0 0 3px 0 var(--grey);
+  cursor: pointer;
 }
 
 .slide-right-enter-active,

@@ -2,7 +2,7 @@
   <div id="SettingsPanel">
     sidepanel (slot would go here)
     <div id="darkenContainer" @click="$emit('darkClick')">
-      <transition name="fade">
+      <transition name="slide">
         <div id="darken" v-if="fade"></div>
       </transition>
     </div>
@@ -54,19 +54,19 @@ export default {
   z-index: 1;
 }
 
-.fade-enter-active,
-.fade-leave-active {
+.slide-right-enter-active,
+.slide-right-leave-active {
   transition: opacity 0.3s ease, transform 0s;
 }
 
-.fade-enter,
-.fade-leave-to {
+.slide-right-enter,
+.slide-leave-to {
   opacity: 0;
   transform: translateY(0);
 }
 
-.fade-enter-to,
-.fade-leave {
+.slide-enter-to,
+.slide-leave {
   opacity: 1;
   transform: translateY(0);
 }

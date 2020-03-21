@@ -5,6 +5,7 @@ import Dashboard from '../layouts/Dashboard/Dashboard.vue';
 import ManageRepos from '../layouts/ManageRepos/ManageRepos.vue';
 // import AnalyzeRepos from '../components/Dashboard/AnalyzeRepos/AnalyzeRepos.vue';
 import AboutAugur from '../layouts/AboutAugur/AboutAugur.vue';
+import SlackConfig from '../layouts/SlackConfig/SlackConfig.vue';
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,13 @@ const routes = [
     children: [
       {
         path: 'manage', 
-        component: ManageRepos
+        component: ManageRepos, 
+        name: 'manage'
+      }, 
+      {
+        path: 'slack', 
+        component: SlackConfig, 
+        name: 'slack'
       }, 
       // {
       //   path: 'analyze', 
@@ -29,7 +36,8 @@ const routes = [
       // }, 
       {
         path: 'about', 
-        component: AboutAugur
+        component: AboutAugur, 
+        name: 'about'
       }
     ]
   }
