@@ -5,11 +5,11 @@
         <nav-link v-for="link in links" :key="link.path" v-bind="link" />
       </div>
       <div class="buttons">
-        <aug-icon-button iconClass="fas fa-bars" :circular="true" @click.stop="toggleSettingsOpen" />
+        <aug-icon-button iconClass="fas fa-bars" :circular="true" @click.stop="toggleSidePanel" />
         <aug-icon-button iconClass="fas fa-user" :circular="true" />
       </div>
       <transition name="slide-right">
-        <settings-panel v-show="isSettingsOpen" class="settings-panel" v-click-outside="closeSettingsPanel" ref="settingsPanel" @darkClick="closeSettingsPanel"/>
+        <side-panel v-show="isSidePanelOpen" class="settings-panel" v-click-outside="closeSidePanel" ref="sidePanel" @darkClick="closeSidePanel"/>
       </transition>
     </div>
   </vue-position-sticky>
@@ -18,7 +18,7 @@
 <script>
 import NavLink from "./NavLink.vue";
 import AugIconButton from "../../../components/BaseComponents/AugIconButton.vue";
-import SettingsPanel from "../../../components/SidePanels/SettingsPanel.vue";
+import SidePanel from "../../../components/SidePanels/SidePanel.vue";
 import ClickOutside from "vue-click-outside";
 
 export default {
@@ -32,31 +32,31 @@ export default {
   components: {
     NavLink,
     AugIconButton,
-    SettingsPanel
+    SidePanel
   },
   data() {
     return {
-      isSettingsOpen: false
+      isSidePanelOpen: false
     };
   },
   methods: {
-    toggleSettingsOpen() {
-      if (this.isSettingsOpen) {
-        this.isSettingsOpen = false;
-        this.$refs.settingsPanel.fadeOut();
+    toggleSidePanel() {
+      if (this.isSidePanelOpen) {
+        this.isSidePanelOpen = false;
+        this.$refs.sidePanel.fadeOut();
       }
       else {
-        this.isSettingsOpen = true;
-        this.$refs.settingsPanel.fadeIn();
+        this.isSidePanelOpen = true;
+        this.$refs.sidePanel.fadeIn();
       }
     }, 
-    closeSettingsPanel() {
-      this.$refs.settingsPanel.fadeOut();
-      this.isSettingsOpen = false;
+    closeSidePanel() {
+      this.$refs.sidePanel.fadeOut();
+      this.isSidePanelOpen = false;
     }, 
-    openSettingsPanel() {
-      this.$refs.settingsPanel.fadeIn();
-      this.isSettingsOpen = true;
+    openSidePanel() {
+      this.$refs.sidePanel.fadeIn();
+      this.isSidePanelOpen = true;
     }
   }, 
   directives: {
