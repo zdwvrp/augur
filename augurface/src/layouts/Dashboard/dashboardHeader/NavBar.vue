@@ -10,7 +10,9 @@
         <img src="../../../assets/slackbutton.png" alt="sign in with slack" class="slack-button" v-show="!isLoggedIn"/>
       </div>
       <transition name="slide-right">
-        <side-panel v-show="isSidePanelOpen" class="settings-panel" v-click-outside="closeSidePanel" ref="sidePanel" @darkClick="closeSidePanel"/>
+        <side-panel v-show="isSidePanelOpen" class="settings-panel" v-click-outside="closeSidePanel" ref="sidePanel" @darkClick="closeSidePanel">
+          <settings-panel />
+        </side-panel>
       </transition>
     </div>
   </vue-position-sticky>
@@ -21,6 +23,7 @@ import NavLink from "./NavLink.vue";
 import AugIconButton from "../../../components/BaseComponents/AugIconButton.vue";
 import SidePanel from "../../../components/SidePanels/SidePanel.vue";
 import ClickOutside from "vue-click-outside";
+import SettingsPanel from "../../../components/SidePanels/SettingsPanel.vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -34,7 +37,8 @@ export default {
   components: {
     NavLink,
     AugIconButton,
-    SidePanel
+    SidePanel, 
+    SettingsPanel
   },
   data() {
     return {

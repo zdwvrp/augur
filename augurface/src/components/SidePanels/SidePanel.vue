@@ -1,6 +1,6 @@
 <template>
   <div id="SettingsPanel">
-    sidepanel (slot would go here)
+    <slot></slot>
     <div id="darkenContainer" @click="$emit('darkClick')">
       <transition name="fadeFromBlack">
         <div id="darken" v-if="fade"></div>
