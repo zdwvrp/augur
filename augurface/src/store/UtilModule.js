@@ -36,6 +36,9 @@ export default {
     getCurrentEndpointUrlForDropdown(state) {
       // maps current endpoint into object compatible with prop for AugDropDown.vue
       return { text: state.baseEndpointUrl, value: state.baseEndpointUrl };
+    }, 
+    getBaseEndpointUrl(state) {
+      return state.baseEndpointUrl;
     }
   }
 }

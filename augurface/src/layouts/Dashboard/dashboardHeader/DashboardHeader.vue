@@ -2,7 +2,7 @@
   <header id="DashboardHeader">
     <img src="../../../assets/logo.png" alt />
     <div class="input-section">
-      <aug-text-input text="" placeholder="Augur Host URL (no trailing slash)..." ref="urlInput" />
+      <aug-text-input text="Augur Host URL" placeholder="Augur Host URL (no trailing slash)..." ref="urlInput" />
       <aug-button text="Apply" @click="applyURL"/>
     </div>
     <!-- <nav-bar :links="links"/> -->
@@ -13,7 +13,7 @@
 // import NavBar from "./NavBar.vue";
 import AugTextInput from "../../../components/BaseComponents/AugTextInput.vue";
 import AugButton from "../../../components/BaseComponents/AugButton.vue";
-import { mapMutations, mapActions } from "vuex";
+import { mapMutations, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "DashboardHeader",
@@ -40,6 +40,12 @@ export default {
     }, 
     ...mapMutations('utilModule', ['setBaseEndpointUrl']), 
     ...mapActions('reposModule', ['refreshRepos'])
+  }, 
+  computed: {
+    ...mapGetters('utilModule', ['getBaseEndpointUrl'])
+  }, 
+  mounted() {
+    this.$refs.urlInput.value = this.getBaseEndpointUrl;
   }
 };
 </script>
@@ -64,7 +70,7 @@ img {
 .input-section {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
 }
 .input-section > * {
   margin-left: 2rem;
