@@ -2,13 +2,13 @@
   <div id="RepoGroupHeader">
     <h1>{{ repoGroup.rg_name }} ({{repoCountInGroup(repoGroup.repo_group_id)}})</h1>
     <div class="buttons">
-      <aug-menu-dropdown
+      <!-- <aug-menu-dropdown
         :menuOptions="[ { key: 'deleteRepoGroup', text: 'delete repo group' }, { key: 'changeGroupName', text: 'change group name' } ]"
         @deleteRepoGroup="deleteGroup()"
         @changeGroupName="changeGroupName()"
         @click="$emit('dropdownclick')"
         ref="dropdown"
-      />
+      /> -->
       <aug-icon-button iconClass="fas fa-arrow-up" v-if="!isCollapsed" @click="$emit('flipCollapse')" :class="{ open: !isCollapsed }" :circular="true" />
       <aug-icon-button iconClass="fas fa-arrow-down" v-if="isCollapsed" @click="$emit('flipCollapse')" :circular="true" />
     </div>
@@ -16,14 +16,14 @@
 </template>
 
 <script>
-import AugMenuDropdown from "../BaseComponents/AugMenuDropdown.vue";
+// import AugMenuDropdown from "../BaseComponents/AugMenuDropdown.vue";
 import AugIconButton from "../BaseComponents/AugIconButton.vue";
 import { mapGetters } from 'vuex';
 
 export default {
   name: "RepoGroupHeader",
   components: {
-    AugMenuDropdown, 
+    // AugMenuDropdown, 
     AugIconButton
   },
   props: {

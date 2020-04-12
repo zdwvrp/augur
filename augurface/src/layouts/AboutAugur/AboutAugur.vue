@@ -38,7 +38,7 @@ export default {
 }
 
 img {
-  width: 600px;
+  width: 400px;
 }
 
 p {

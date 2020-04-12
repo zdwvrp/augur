@@ -1,18 +1,21 @@
 <template>
   <div id="ManageRepos">
-    <manage-buttons @collapseAll="collapseAll()"/>
-    <div class="loading" v-if="!isLoaded">
-      <aug-spinner size="4" />
-      <p>loading repositories</p>
-    </div>
-    <div class="groups" v-if="isLoaded">
-      <repo-group
-        v-for="rg in getRepoGroups"
-        :key="rg.repo_group_id"
-        :repoGroup="rg"
-        ref="repoGroups"
-        @dropdownclick="dropdownClick()"
-      />
+    <dashboard-header />
+    <div id="manage-content">
+      <manage-buttons @collapseAll="collapseAll()" />
+      <div class="loading" v-if="!isLoaded">
+        <aug-spinner size="4" />
+        <p>loading repositories</p>
+      </div>
+      <div class="groups" v-if="isLoaded">
+        <repo-group
+          v-for="rg in getRepoGroups"
+          :key="rg.repo_group_id"
+          :repoGroup="rg"
+          ref="repoGroups"
+          @dropdownclick="dropdownClick()"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +24,7 @@
 import RepoGroup from "../../components/RepoGroup/RepoGroup.vue";
 import ManageButtons from "./ManageButtons.vue";
 import AugSpinner from "../../components/BaseComponents/AugSpinner.vue";
+import DashboardHeader from "../Dashboard/dashboardHeader/DashboardHeader.vue";
 
 import { mapGetters } from "vuex";
 
@@ -28,27 +32,36 @@ export default {
   name: "ManageRepos",
   components: {
     RepoGroup,
-    ManageButtons, 
-    AugSpinner
+    ManageButtons,
+    AugSpinner,
+    DashboardHeader
   },
   methods: {
     collapseAll() {
       this.$refs.repoGroups.forEach(rg => rg.collapse());
-    }, 
+    },
     dropdownClick() {
       this.$refs.repoGroups.forEach(rg => {
-        rg.$refs.header.$refs.dropdown.collapse()
+        rg.$refs.header.$refs.dropdown.collapse();
       });
     }
-  }, 
+  },
+  beforeCreate() {
+    this.$store.dispatch("reposModule/retrieveRepoGroups", true);
+    this.$store.dispatch("reposModule/retrieveRepos", true);
+  },
   computed: {
-    ...mapGetters("reposModule", ["isLoaded", "isGroupsLoaded", "getRepoGroups"])
+    ...mapGetters("reposModule", [
+      "isLoaded",
+      "isGroupsLoaded",
+      "getRepoGroups"
+    ])
   }
 };
 </script>
 
 <style scoped>
-#ManageRepos {
+#manage-content {
   display: flex;
   flex-direction: column;
   align-items: center;

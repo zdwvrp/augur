@@ -52,6 +52,8 @@ export default {
 
 #not-logged-in > .logo {
     margin-bottom: 2rem;
+    width: 400px;
+    padding: 1rem;
 }
 
 #not-logged-in > p {

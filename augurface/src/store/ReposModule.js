@@ -175,6 +175,7 @@ export default {
       // make request (if nothing is in sessionStorage)
       return fetch(`${rootState.utilModule.baseEndpointUrl}/repos`)
         .then(res => {
+          console.log(res.status);
           if (res.status !== 200) {
             console.log('request for loading repos failed...');
             console.dir(res);
@@ -186,7 +187,8 @@ export default {
         .then(res => {
           if (res != null) {
             // filter response and update state
-            let filteredResponse = res.map(repo => {
+            let filteredResponse = [];
+            filteredResponse = res.map(repo => {
               let filteredRepo = _.pick(repo, [
                 'repo_id',
                 'repo_name',
@@ -199,6 +201,7 @@ export default {
               filteredRepo.repo_id = String(filteredRepo.repo_id);
               return filteredRepo;
             })
+            console.log(filteredResponse);
             sessionStorage.setItem('__augursessionstorage__repos', JSON.stringify(filteredResponse));
             commit('setRepos', filteredResponse);
             commit('setReposLoaded', true);
