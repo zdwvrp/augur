@@ -354,9 +354,15 @@ class Worker():
                 continue
 
             obj['flag'] = 'none' # default of no action needed
+            existing_tuple = None
             for db_dupe_key in list(duplicate_col_map.keys()):
 
                 if table_values.isin([obj[duplicate_col_map[db_dupe_key]]]).any().any():
+                    if table_values[table_values[db_dupe_key].isin(
+                        [obj[duplicate_col_map[db_dupe_key]]])].to_dict('records'):
+
+                        existing_tuple = table_values[table_values[db_dupe_key].isin(
+                            [obj[duplicate_col_map[db_dupe_key]]])].to_dict('records')[0]
                     continue
 
                 self.logger.info('Found a tuple that needs insertion based on dupe key: {}\n'.format(db_dupe_key))
@@ -369,14 +375,11 @@ class Worker():
                     'Moving to next tuple.\n')
                 continue
 
-            try:
-                existing_tuple = table_values[table_values[db_dupe_key].isin(
-                    [obj[duplicate_col_map[db_dupe_key]]])].to_dict('records')[0]
-            except Exception as e:
-                self.logger.info('Special case assign_tuple_action error')
-                self.logger.info(f'Error: {e}')
-                self.logger.info(f'Related vars: {table_values}, ' +
-                    f'{table_values[db_dupe_key].isin([obj[duplicate_col_map[db_dupe_key]]])}')
+            if not existing_tuple:
+                self.logger.info('An existing tuple was not found for this data ' +
+                    'point and we have reached the check-updates portion of assigning ' +
+                    'tuple action, so we will now move to next data point\n')
+                continue
 
             # If we need to check the values of the existing tuple to determine if an update is needed
             for augur_col, value_check in value_update_col_map.items():
@@ -582,7 +585,7 @@ class Worker():
         owner = split[-2]
         repo = split[-1]
 
-        if '.git' in repo:
+        if '.git' == repo[-4:]:
             repo = repo[:-4]
 
         return owner, repo
