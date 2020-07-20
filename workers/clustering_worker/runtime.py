@@ -23,3 +23,5 @@ def main():
         pass
 
     os.kill(os.getpid(), 9)
+
+main()
