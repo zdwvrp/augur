@@ -4,10 +4,12 @@ from multiprocessing import Process, Queue
 import pandas as pd
 import sqlalchemy as s
 from workers.worker_base import Worker
+from urllib.parse import urlparse
 
 class ClusteringWorker(Worker):
 	def __init__(self, config={}):
-		self.logger.info("Clustering Worker init")
+
+		self.logger.info("Clustering Worker init... \n")
 	
 		worker_type = "clustering_worker"
 		
@@ -30,8 +32,10 @@ class ClusteringWorker(Worker):
 		self.tool_version = '0.0.0'
 		self.data_source = 'Non-existent API'
 
-	def clustering_model(self, task, repo_id):
-		logging.info("Clustering Worker init")
+# Changed task to entry_info based on new insight worker
+
+	def clustering_model(self, entry_info, repo_id):
+		logging.info("Clustering Worker init... \n")
 		
 		'''
 		repo_group_sql = s.sql.text("""
