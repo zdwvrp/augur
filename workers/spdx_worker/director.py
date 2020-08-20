@@ -6,7 +6,7 @@ import re
 import os
 import requests
 from os.path import expanduser
-
+from pathlib import Path
 import sbom_populate as p
 import initial_scans as s
 
@@ -29,6 +29,8 @@ if __name__ == "__main__":
         configtools = 'postgresql://{}:{}@{}:{}/{}'.format(
             user, password, host, port, dbname
         )
+        
+        Path(home+"/.config/dosocs2").mkdir(parents=True, exist_ok=True) 
 
         with open("dosocs2-example.conf") as configfile:
             content = configfile.read()

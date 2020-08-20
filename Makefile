@@ -31,7 +31,7 @@ default:
 #  Installation
 #
 .PHONY: install install-dev 
-.PHONY: install-spdx install-augur-sbom 
+.PHONY: install-spdx install-augur-sbom clone-augur-spdx 
 .PHONY: clean rebuild
 install:
 	@ ./scripts/install/install.sh prod
@@ -41,9 +41,14 @@ install-dev:
 
 install-spdx:
 	@ ./scripts/install/spdx/install-spdx-sudo.sh
+	@ ./scripts/install/spdx/nomos.sh
+	@ ./scripts/install/spdx/clone-spdx.sh
 
 install-augur-sbom:
 	@ ./scripts/install/spdx/nomos.sh
+
+clone-augur-spdx: 
+	@ ./scripts/install/spdx/clone-spdx.sh
 
 clean:
 	@ scripts/control/clean.sh
