@@ -181,7 +181,8 @@ default_config = {
                 "port": 51242,
                 "switch": 0,
                 "workers": 1,
-                "tagfile": "3.0.tag"
+                "tagfile": "3.0.tag",
+                "search_depth": 8
             }
         },
         "Facade": {
