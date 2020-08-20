@@ -176,6 +176,12 @@ default_config = {
                 "port": 51200,
                 "switch": 1,
                 "workers": 1
+            }, 
+            "license_worker": {
+                "port": 51242,
+                "switch": 0,
+                "workers": 1,
+                "tagfile": "3.0.tag"
             }
         },
         "Facade": {
