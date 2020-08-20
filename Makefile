@@ -40,13 +40,13 @@ install-dev:
 	@ ./scripts/install/install.sh dev
 
 install-spdx:
-	@ ./scripts/install/install-spdx.sh
+	@ ./scripts/install/spdx/install-spdx.sh
 
 install-spdx-sudo:
-	@ ./scripts/install/install-spdx-sudo.sh
+	@ ./scripts/install/spdx/install-spdx-sudo.sh
 
 install-augur-sbom:
-	@ ./scripts/install/nomos.sh
+	@ ./scripts/install/spdx/nomos.sh
 
 clean:
 	@ scripts/control/clean.sh
